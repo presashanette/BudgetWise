@@ -118,7 +118,7 @@
                 android:inputType="text"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:textColor="@color/c5"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
         </androidx.cardview.widget.CardView>
 
@@ -165,7 +165,7 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:shadowRadius="5"
-                android:textColor="@color/c5"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
         </androidx.cardview.widget.CardView>
 
@@ -211,7 +211,8 @@
                 android:inputType="none"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
