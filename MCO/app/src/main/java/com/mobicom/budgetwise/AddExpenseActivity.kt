@@ -22,6 +22,7 @@ class AddExpenseActivity : AppCompatActivity() {
         val btnAdd: Button = findViewById(R.id.btnAddExp)
         val btnCancel: Button = findViewById(R.id.btnCancel)
 
+        // Expense categories for the dropdown
         val items = listOf(
             "Food", "Groceries", "Transportation", "Utilities", "Savings",
             "Entertainment", "Fitness & Health", "Shopping", "Other"
@@ -30,10 +31,12 @@ class AddExpenseActivity : AppCompatActivity() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
 
+        // Set current date by default
         val calendar = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
         etvDate.setText(dateFormat.format(calendar.time))
 
+        // Get stored user info
         val sharedPrefs = getSharedPreferences("BudgetWisePrefs", MODE_PRIVATE)
         val userId = sharedPrefs.getString("userId", null)
         val email = sharedPrefs.getString("email", null)
@@ -42,6 +45,7 @@ class AddExpenseActivity : AppCompatActivity() {
         // Handle data from ScanReceiptActivity
         handleScannedData(spinner, etvName, etvPrice, etvDate, items)
 
+        // Open date picker when the user taps the date field
         etvDate.setOnClickListener {
             val existingDate = etvDate.text.toString()
             val displayFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
@@ -107,6 +111,7 @@ class AddExpenseActivity : AppCompatActivity() {
                 "category" to category
             )
 
+            // Push to Firebase
             val db = FirebaseDatabase.getInstance().reference
                 .child("Expenses")
                 .child(userId)
@@ -129,6 +134,7 @@ class AddExpenseActivity : AppCompatActivity() {
         }
     }
 
+    // Fills in the fields if it came from a receipt scan
     private fun handleScannedData(
         spinner: Spinner,
         etvName: EditText,
