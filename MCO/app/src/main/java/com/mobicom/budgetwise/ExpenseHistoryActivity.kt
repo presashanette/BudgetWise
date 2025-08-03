@@ -43,6 +43,7 @@ class ExpenseHistoryActivity : BaseActivity() {
             adapter.notifyDataSetChanged()
         }
 
+        // Adapter handles how the expenses are displayed in the RecyclerView
         adapter = ExpenseAdapter(
             data,
             launcher,
@@ -81,6 +82,7 @@ class ExpenseHistoryActivity : BaseActivity() {
     }
 
     private fun loadExpenses() {
+        // Re-fetch data from Firebase every time something changes in the "Expenses" node
         dbRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 data.clear()
@@ -91,7 +93,7 @@ class ExpenseHistoryActivity : BaseActivity() {
                         data.add(expense)
                     }
                 }
-
+                // If no expenses exist, show a message and hide the list
                 if (data.isEmpty()) {
                     tvNoExpenses.visibility = View.VISIBLE
                     noExpIcon.visibility = View.VISIBLE
@@ -111,6 +113,7 @@ class ExpenseHistoryActivity : BaseActivity() {
         })
     }
 
+    // Filters the expense list based on the search query and selected category
     private fun filterExpenses(searchQuery: String?, selectedCategory: String) {
         val filtered = data.filter {
             val matchesQuery = searchQuery.isNullOrBlank() || it.name.contains(searchQuery, ignoreCase = true)

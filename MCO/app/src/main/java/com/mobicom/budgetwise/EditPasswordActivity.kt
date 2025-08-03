@@ -42,6 +42,7 @@ class EditPasswordActivity : AppCompatActivity() {
             return
         }
 
+        // Show user's email on top for reference
         tvUserEmail.text = userEmail ?: "Unknown email"
         database = FirebaseDatabase.getInstance().reference.child("Users").child(userId!!)
 
@@ -71,6 +72,7 @@ class EditPasswordActivity : AppCompatActivity() {
                 }
         }
 
+        // Go back to previous screen without saving any changes
         btnCancel.setOnClickListener {
             finish()
         }
