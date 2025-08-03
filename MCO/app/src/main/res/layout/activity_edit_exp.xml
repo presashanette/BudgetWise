@@ -161,7 +161,7 @@
                 android:background="@drawable/inputs"
                 android:elevation="10dp"
                 android:ems="10"
-                android:inputType="textEmailAddress"
+                android:inputType="numberDecimal"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:shadowRadius="5"
