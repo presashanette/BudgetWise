@@ -24,7 +24,6 @@ class UploadReceiptActivity : AppCompatActivity() {
         val userId = sharedPrefs.getString("userId", null)
         val email = sharedPrefs.getString("email", null)
 
-        // Directly start image picker
         openImagePicker()
     }
 
@@ -139,7 +138,7 @@ class UploadReceiptActivity : AppCompatActivity() {
 
     private fun formatDate(dateString: String): String {
         val inputFormats = listOf(
-            // Existing formats with separators
+            // for dates with separators
             SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()),
             SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()),
             SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()),
@@ -150,7 +149,7 @@ class UploadReceiptActivity : AppCompatActivity() {
             SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()),
             SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()),
 
-            // NEW: Formats for dates WITHOUT separators
+            // for dates WITHOUT separators
             SimpleDateFormat("ddMMyyyy", Locale.getDefault()),  // 22082018
             SimpleDateFormat("MMddyyyy", Locale.getDefault()),  // 08222018
             SimpleDateFormat("yyyyMMdd", Locale.getDefault()),  // 20180822
@@ -175,7 +174,6 @@ class UploadReceiptActivity : AppCompatActivity() {
     }
 
     private fun parseAmount(text: String): String {
-        // Patterns that match lines with ₱ or common total-related keywords
         val amountPatterns = listOf(
             Regex("""(?:take out total|amount due|total amount to be paid|total|subtotal)[:\s]*₱?\s*(\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2}))""", RegexOption.IGNORE_CASE),
             Regex("""₱\s*(\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2}))"""),
@@ -214,7 +212,7 @@ class UploadReceiptActivity : AppCompatActivity() {
                     "store" in lower || "mart" in lower || "shop" in lower -> "Groceries"
 
             // Transportation-related keywords
-            "taxi" in lower || "uber" in lower || "lyft" in lower || "bus" in lower ||
+            "taxi" in lower || "grab" in lower || "angkas" in lower || "bus" in lower ||
                     "train" in lower || "transport" in lower || "gas" in lower ||
                     "fuel" in lower || "parking" in lower -> "Transportation"
 

@@ -24,7 +24,6 @@ class EditExpenseActivity : AppCompatActivity() {
 
         // Retrieve data from intent
         expenseId = intent.getStringExtra("expenseId") ?: ""
-//        userId = intent.getStringExtra("userId") ?: ""
         val name = intent.getStringExtra(ExpenseAdapter.KEY_NAME) ?: ""
         val price = intent.getStringExtra(ExpenseAdapter.KEY_PRICE) ?: ""
         val date = intent.getStringExtra(ExpenseAdapter.KEY_DATE) ?: ""

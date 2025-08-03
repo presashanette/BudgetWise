@@ -33,10 +33,8 @@ class ExpenseAdapter(
             binding.expenseDate.text = expense.date
             binding.expenseAmount.text = "₱${expense.price}"
 
-            // ✅ Handle icon for category (make sure IconMapper exists)
             binding.iconImageView.setImageResource(IconMapper.getIconResource(expense.category))
 
-            // ✅ On click: open ViewExpenseActivity with all details
             binding.root.setOnClickListener {
                 val intent = Intent(binding.root.context, ViewExpenseActivity::class.java).apply {
                     putExtra(KEY_NAME, expense.name)

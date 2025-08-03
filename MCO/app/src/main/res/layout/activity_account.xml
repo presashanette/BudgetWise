@@ -11,6 +11,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:layout_marginBottom="150dp"
         android:background="@drawable/header"
         android:elevation="25dp">
 
@@ -30,33 +31,17 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/profilePic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        app:srcCompat="@drawable/group_51" />
-
     <TextView
         android:id="@+id/welcomeText"
         android:layout_width="246dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="50dp"
         android:text="TextView"
         android:textAlignment="center"
         android:textColor="@color/c2"
         android:textSize="26sp"
         android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/changePicBtn"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="70dp"
-        android:backgroundTint="@color/c3"
-        android:text="CHANGE PROFILE PHOTO"
-        android:textColor="@color/c1"
-        app:cornerRadius="50dp" />
 
     <Button
         android:id="@+id/editPwBtn"

@@ -27,7 +27,6 @@ class ExpenseHistoryActivity : BaseActivity() {
         val userId = sharedPrefs.getString("userId", null)
         val email = sharedPrefs.getString("email", null)
 
-//        userId = getUserIdFromPrefs()
         if (userId.isNullOrEmpty()) {
             Toast.makeText(this, "Session expired. Please log in again.", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, LoginActivity::class.java))

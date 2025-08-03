@@ -35,9 +35,6 @@ class EditPasswordActivity : AppCompatActivity() {
         val userId = sharedPrefs.getString("userId", null)
         val userEmail = sharedPrefs.getString("email", null)
 
-//        userId = intent.getStringExtra("userId")
-//        userEmail = getSharedPreferences("BudgetWisePrefs", MODE_PRIVATE).getString("email", null)
-
         if (userId.isNullOrEmpty()) {
             Toast.makeText(this, "Session error. Please log in again.", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, LoginActivity::class.java))

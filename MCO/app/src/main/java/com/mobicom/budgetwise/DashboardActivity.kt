@@ -43,8 +43,6 @@ class DashboardActivity : BaseActivity() {
         pieChart = findViewById(R.id.pieChart)
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference
-//        val email = intent.getStringExtra("email")
-//        val userId = intent.getStringExtra("userId")
         val sharedPrefs = getSharedPreferences("BudgetWisePrefs", MODE_PRIVATE)
         val userId = sharedPrefs.getString("userId", null)
         val email = sharedPrefs.getString("email", null)
@@ -57,18 +55,8 @@ class DashboardActivity : BaseActivity() {
         } else {
             val username = email.substringBefore("@")
             findViewById<TextView>(R.id.tvUser).text = "$username"
-//            updateWelcomeText()
             fetchExpenses(userId)
         }
-
-
-//        val userId = auth.currentUser?.uid
-//        if (userId != null) {
-//            updateWelcomeText()
-//            fetchExpenses(userId)
-//        } else {
-//            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
-//        }
     }
 
     private fun updateWelcomeText() {

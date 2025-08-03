@@ -34,7 +34,6 @@ class AddExpenseActivity : AppCompatActivity() {
         val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
         etvDate.setText(dateFormat.format(calendar.time))
 
-//        val userId = intent.getStringExtra("userId")
         val sharedPrefs = getSharedPreferences("BudgetWisePrefs", MODE_PRIVATE)
         val userId = sharedPrefs.getString("userId", null)
         val email = sharedPrefs.getString("email", null)
@@ -50,12 +49,10 @@ class AddExpenseActivity : AppCompatActivity() {
             val tempCalendar = Calendar.getInstance()
 
             try {
-                // Try parsing using display format first (e.g., from previous manual entry)
                 val parsedDisplay = displayFormat.parse(existingDate)
                 if (parsedDisplay != null) {
                     tempCalendar.time = parsedDisplay
                 } else {
-                    // Try parsing from receipt format (e.g., extracted date like 22/08/2018)
                     val parsedReceipt = receiptFormat.parse(existingDate)
                     if (parsedReceipt != null) {
                         tempCalendar.time = parsedReceipt
@@ -116,8 +113,6 @@ class AddExpenseActivity : AppCompatActivity() {
 
             db.push().setValue(expense)
                 .addOnSuccessListener {
-                    Toast.makeText(this, "Saving expense for userId: $userId", Toast.LENGTH_LONG).show()
-
                     Toast.makeText(this, "Expense added successfully", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, ExpenseHistoryActivity::class.java)
                     intent.putExtra("userId", userId)

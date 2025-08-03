@@ -12,27 +12,19 @@ class AccountActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account)
-//      Uncomment nalang when u make account modelss
-//        val userName = intent.getStringExtra("USER_NAME") ?: "User"
         val welcomeText = findViewById<TextView>(R.id.welcomeText)
         val logoutButton = findViewById<Button>(R.id.logOutBtn)
         val editPwBtn = findViewById<Button>(R.id.editPwBtn)
-        val changePicBtn = findViewById<Button>(R.id.changePicBtn)
 
         val sharedPrefs = getSharedPreferences("BudgetWisePrefs", MODE_PRIVATE)
         val userId = sharedPrefs.getString("userId", null)
         val email = sharedPrefs.getString("email", null)
 
-//        userId = getUserIdFromPrefs()
-//        val email = intent.getStringExtra("email")
         val username = email?.substringBefore("@")
         welcomeText.text = "Welcome back, $username!"
-//        welcomeText.text = "Welcome back, Sir Oliver!"
         logoutButton.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-//            val sharedPrefs = getSharedPreferences("BudgetWisePrefs", MODE_PRIVATE)
             with(sharedPrefs.edit()) {
                 clear()
                 apply()

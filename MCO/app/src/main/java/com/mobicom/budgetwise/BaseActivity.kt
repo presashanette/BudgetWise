@@ -49,16 +49,14 @@ abstract class BaseActivity : AppCompatActivity() {
         btnAddExpense.setOnClickListener {
             if (clicked) onAddButtonClicked()
 
-            val userId = getUserIdFromPrefs() // ✅ Always read from current Intent
+            val userId = getUserIdFromPrefs()
             if (userId.isNullOrEmpty()) {
-                // Safety fallback: redirect to Login if userId missing
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
                 return@setOnClickListener
             }
 
             val intent = Intent(this, AddExpenseActivity::class.java)
-//            intent.putExtra("userId", userId)
             startActivity(intent)
         }
 
@@ -73,7 +71,6 @@ abstract class BaseActivity : AppCompatActivity() {
             }
 
             val intent = Intent(this, UploadReceiptActivity::class.java)
-//            intent.putExtra("userId", userId)
             startActivity(intent)
         }
 
@@ -85,12 +82,11 @@ abstract class BaseActivity : AppCompatActivity() {
     private fun initBottomNav() {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         bottomNav.setOnItemSelectedListener { item ->
-            val currentUserId = getUserIdFromPrefs() // ✅ Fetch once
+            val currentUserId = getUserIdFromPrefs()
             when (item.itemId) {
                 R.id.nav_dashboard -> {
                     if (this !is DashboardActivity) {
                         val intent = Intent(this, DashboardActivity::class.java)
-//                        intent.putExtra("userId", currentUserId)
                         startActivity(intent)
                         finish()
                     }
@@ -99,7 +95,6 @@ abstract class BaseActivity : AppCompatActivity() {
                 R.id.nav_expenses -> {
                     if (this !is ExpenseHistoryActivity) {
                         val intent = Intent(this, ExpenseHistoryActivity::class.java)
-//                        intent.putExtra("userId", currentUserId)
                         startActivity(intent)
                         finish()
                     }
@@ -108,9 +103,6 @@ abstract class BaseActivity : AppCompatActivity() {
                 R.id.nav_account -> {
                     if (this !is AccountActivity) {
                         val intent = Intent(this, AccountActivity::class.java)
-//                        intent.putExtra("userId", currentUserId)
-//                        val email = getEmailFromPrefs()
-//                        intent.putExtra("email", email)
                         startActivity(intent)
                         finish()
                     }
