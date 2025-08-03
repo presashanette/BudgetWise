@@ -19,11 +19,13 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private var clicked = false
 
+    // Animations for the FABs
     private val rotateOpen by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_open_anim) }
     private val rotateClose by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_close_anim) }
     private val fromBottom by lazy { AnimationUtils.loadAnimation(this, R.anim.from_bottom_anim) }
     private val toBottom by lazy { AnimationUtils.loadAnimation(this, R.anim.to_bottom_anim) }
 
+    // Override default setContentView so we can inject our base layout
     override fun setContentView(layoutResID: Int) {
         val baseLayout = layoutInflater.inflate(R.layout.activity_base, null)
         val container = baseLayout.findViewById<FrameLayout>(R.id.container)
@@ -34,6 +36,7 @@ abstract class BaseActivity : AppCompatActivity() {
         initBottomNav()
     }
 
+     // Sets up FAB behavior and click listeners
     private fun initFab() {
         mainFab = findViewById(R.id.mainFab)
         btnAddExpense = findViewById(R.id.btnAddExpense)
@@ -46,6 +49,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
         mainFab.setOnClickListener { onAddButtonClicked() }
 
+        // Add Expense clicked
         btnAddExpense.setOnClickListener {
             if (clicked) onAddButtonClicked()
 
@@ -56,10 +60,12 @@ abstract class BaseActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // Go to Add Expense screen
             val intent = Intent(this, AddExpenseActivity::class.java)
             startActivity(intent)
         }
 
+        // Scan Receipt clicked
         btnScanReceipt.setOnClickListener {
             if (clicked) onAddButtonClicked()
 
@@ -70,6 +76,7 @@ abstract class BaseActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // Go to Scan Receipt screen
             val intent = Intent(this, UploadReceiptActivity::class.java)
             startActivity(intent)
         }
@@ -79,6 +86,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    // Bottom nav setup and page switching logic
     private fun initBottomNav() {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         bottomNav.setOnItemSelectedListener { item ->
@@ -119,12 +127,14 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    // Toggles FAB animations and visibility
     private fun onAddButtonClicked() {
         setVisibility(clicked)
         setAnimation(clicked)
         clicked = !clicked
     }
 
+    // Show/hide the action buttons
     private fun setVisibility(clicked: Boolean) {
         if (!clicked) {
             addExpenseContainer.visibility = View.VISIBLE
@@ -135,6 +145,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    // Play animations for FAB toggle
     private fun setAnimation(clicked: Boolean) {
         if (!clicked) {
             addExpenseContainer.startAnimation(fromBottom)
@@ -150,11 +161,13 @@ abstract class BaseActivity : AppCompatActivity() {
     open fun shouldShowScanReceipt(): Boolean = true
     open fun getCurrentNavItemId(): Int? = null
 
+    // Helper to get user ID from shared prefs
     protected fun getUserIdFromPrefs(): String? {
         val sharedPrefs = getSharedPreferences("BudgetWisePrefs", MODE_PRIVATE)
         return sharedPrefs.getString("userId", null)
     }
 
+    // Helper to get email from shared prefs
     protected fun getEmailFromPrefs(): String? {
         val sharedPrefs = getSharedPreferences("BudgetWisePrefs", MODE_PRIVATE)
         return sharedPrefs.getString("email", null)
