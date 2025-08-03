@@ -22,7 +22,7 @@ class EditExpenseActivity : AppCompatActivity() {
         val userId = sharedPrefs.getString("userId", null)
         val email = sharedPrefs.getString("email", null)
 
-        // Retrieve data from intent
+        // retrieve data from intent
         expenseId = intent.getStringExtra("expenseId") ?: ""
         val name = intent.getStringExtra(ExpenseAdapter.KEY_NAME) ?: ""
         val price = intent.getStringExtra(ExpenseAdapter.KEY_PRICE) ?: ""
@@ -42,7 +42,7 @@ class EditExpenseActivity : AppCompatActivity() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
 
-        // Pre-fill fields
+        // pre-fill fields
         etvName.setText(name)
         etvPrice.setText(price)
         etvDate.setText(date)
@@ -62,7 +62,7 @@ class EditExpenseActivity : AppCompatActivity() {
             }, year, month, day).show()
         }
 
-        // Save changes to Firebase
+        // save changes to Firebase
         btnSave.setOnClickListener {
             val updatedExpense = mapOf(
                 "name" to etvName.text.toString(),
