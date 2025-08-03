@@ -15,7 +15,8 @@ import java.util.*
 import android.util.Log
 
 class UploadReceiptActivity : AppCompatActivity() {
-    private val PICK_IMAGE_REQUEST = 1001
+    // Request code for image picker
+    private val PICK_IMAGE_REQUEST = 1001 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,9 +25,11 @@ class UploadReceiptActivity : AppCompatActivity() {
         val userId = sharedPrefs.getString("userId", null)
         val email = sharedPrefs.getString("email", null)
 
+        // Immediately launch image picker when this activity starts
         openImagePicker()
     }
 
+    // pick an image from the gallery
     private fun openImagePicker() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
@@ -39,6 +42,7 @@ class UploadReceiptActivity : AppCompatActivity() {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
             val imageUri: Uri? = data?.data
             if (imageUri != null) {
+                // Convert selected image into an ML Kit-compatible format
                 val image = InputImage.fromFilePath(this, imageUri)
                 extractTextFromImage(image)
             } else {
@@ -58,11 +62,13 @@ class UploadReceiptActivity : AppCompatActivity() {
             .addOnSuccessListener { visionText ->
                 val extractedText = visionText.text
 
+                // Pull key info from the text block
                 val merchantName = parseMerchant(extractedText)
                 val date = parseDate(extractedText)
                 val amount = parseAmount(extractedText)
                 val category = parseCategory(extractedText)
 
+                // Launch AddExpenseActivity with extracted data
                 val userId = intent.getStringExtra("userId")  // Get userId from UploadReceiptActivity's intent
                 val intent = Intent(this, AddExpenseActivity::class.java)
                 intent.putExtra("userId", userId)             // Pass it along to AddExpenseActivity
@@ -131,6 +137,8 @@ class UploadReceiptActivity : AppCompatActivity() {
         }
 
         Log.d("DateParser", "No date found, using current date")
+
+        // Default to current date if nothing was matched
         return SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(Date())
     }
 
@@ -176,7 +184,7 @@ class UploadReceiptActivity : AppCompatActivity() {
     private fun parseAmount(text: String): String {
         val amountPatterns = listOf(
             Regex("""(?:take out total|amount due|total amount to be paid|total|subtotal)[:\s]*₱?\s*(\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2}))""", RegexOption.IGNORE_CASE),
-            Regex("""₱\s*(\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2}))"""),
+            Regex("""₱\s*(\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2}))"""), // starts with peso symbol
             Regex("""(\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2}))""") // fallback: any amount-looking number
         )
 
