@@ -24,7 +24,7 @@ class AddExpenseActivity : AppCompatActivity() {
 
         // Expense categories for the dropdown
         val items = listOf(
-            "Food", "Groceries", "Transportation", "Utilities", "Savings",
+            "Food", "Groceries", "Transportation", "Utilities",
             "Entertainment", "Fitness & Health", "Shopping", "Other"
         )
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, items)
