@@ -25,24 +25,28 @@ class DashboardActivity : BaseActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
 
+    //map to hold total values for each category
     private val categoryTotals = mutableMapOf(
         "Food" to 0f,
         "Groceries" to 0f,
         "Transportation" to 0f,
         "Utilities" to 0f,
-        "Savings" to 0f,
         "Entertainment" to 0f,
         "Fitness/Health" to 0f,
-        "Shopping" to 0f
+        "Shopping" to 0f,
+        "Other" to 0f
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
+        //initialize
         pieChart = findViewById(R.id.pieChart)
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference
+
+        //retrieve info from SharedPreferences
         val sharedPrefs = getSharedPreferences("BudgetWisePrefs", MODE_PRIVATE)
         val userId = sharedPrefs.getString("userId", null)
         val email = sharedPrefs.getString("email", null)
@@ -65,14 +69,16 @@ class DashboardActivity : BaseActivity() {
         findViewById<TextView>(R.id.tvUser).text = "Welcome, $username"
     }
 
+    //fetches all data for the current user from firebase
     private fun fetchExpenses(userId: String) {
         val expensesRef = database.child("Expenses").child(userId)
 
         expensesRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                // Reset totals before populating
+                // reset totals before populating
                 categoryTotals.keys.forEach { categoryTotals[it] = 0f }
 
+                //loop through each entry
                 snapshot.children.forEach { expenseSnap ->
                     val category = expenseSnap.child("category").value?.toString()?.lowercase()
                         ?: return@forEach
@@ -81,12 +87,12 @@ class DashboardActivity : BaseActivity() {
 
                     Log.d("ExpenseDebug", "Category: $category | Price: $price")
 
+                    //add value to the appropriate category in the map
                     when (category) {
                         "food" -> categoryTotals["Food"] = categoryTotals["Food"]!! + price
                         "groceries" -> categoryTotals["Groceries"] = categoryTotals["Groceries"]!! + price
                         "transportation" -> categoryTotals["Transportation"] = categoryTotals["Transportation"]!! + price
                         "utilities" -> categoryTotals["Utilities"] = categoryTotals["Utilities"]!! + price
-                        "savings" -> categoryTotals["Savings"] = categoryTotals["Savings"]!! + price
                         "entertainment" -> categoryTotals["Entertainment"] = categoryTotals["Entertainment"]!! + price
                         "fitness & health" -> categoryTotals["Fitness/Health"] = categoryTotals["Fitness/Health"]!! + price
                         "shopping" -> categoryTotals["Shopping"] = categoryTotals["Shopping"]!! + price
@@ -104,24 +110,25 @@ class DashboardActivity : BaseActivity() {
         })
     }
 
+    //display each category's total below the chart
     private fun updateTextViews() {
         findViewById<TextView>(R.id.tvPrice1).text = "₱%.2f".format(categoryTotals["Food"])
         findViewById<TextView>(R.id.tvPrice2).text = "₱%.2f".format(categoryTotals["Groceries"])
         findViewById<TextView>(R.id.tvPrice3).text = "₱%.2f".format(categoryTotals["Transportation"])
         findViewById<TextView>(R.id.tvPrice4).text = "₱%.2f".format(categoryTotals["Utilities"])
-        findViewById<TextView>(R.id.tvPrice5).text = "₱%.2f".format(categoryTotals["Savings"])
+        findViewById<TextView>(R.id.tvPrice5).text = "₱%.2f".format(categoryTotals["Other"])
         findViewById<TextView>(R.id.tvPrice6).text = "₱%.2f".format(categoryTotals["Entertainment"])
         findViewById<TextView>(R.id.tvPrice7).text = "₱%.2f".format(categoryTotals["Fitness/Health"])
         findViewById<TextView>(R.id.tvPrice8).text = "₱%.2f".format(categoryTotals["Shopping"])
     }
 
+    //updates the pie chart visualization with the current data
     private fun updatePieChart() {
         val categoryColorMap = mapOf(
             "Food" to Color.parseColor("#F44336"),
             "Groceries" to Color.parseColor("#1c7bc7"),
             "Transportation" to Color.parseColor("#FC478A"),
             "Utilities" to Color.parseColor("#03A9F4"),
-            "Savings" to Color.parseColor("#9C27B0"),
             "Entertainment" to Color.parseColor("#009688"),
             "Fitness/Health" to Color.parseColor("#3F51B5"),
             "Shopping" to Color.parseColor("#4CAF50"),
@@ -131,6 +138,7 @@ class DashboardActivity : BaseActivity() {
         val entries = ArrayList<PieEntry>()
         val colors = ArrayList<Int>()
 
+        //only add non zero categories to the chart
         for ((category, value) in categoryTotals) {
             if (value > 0) {
                 entries.add(PieEntry(value, category))
@@ -138,6 +146,7 @@ class DashboardActivity : BaseActivity() {
             }
         }
 
+        //initial visualization while there are no entries
         if (entries.isEmpty()) {
             entries.add(PieEntry(1f, "")) // dummy entry
             colors.add(Color.LTGRAY)     // default gray
@@ -157,14 +166,15 @@ class DashboardActivity : BaseActivity() {
             })
         }
 
+        //configure chart appearance
         pieChart.apply {
             data = pieData
             setUsePercentValues(true)
             centerText = if (entries.size == 1 && entries[0].label == "") "No Data" else "Financial Allocation"
             setDrawEntryLabels(false)
             description.isEnabled = false
-            legend.isEnabled = false
-            invalidate()
+            legend.isEnabled = false //legend is not shown as a customized one is created
+            invalidate() //refreshes the chart
         }
     }
 
