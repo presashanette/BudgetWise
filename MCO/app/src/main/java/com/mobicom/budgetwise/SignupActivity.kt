@@ -11,6 +11,7 @@ import androidx.core.content.edit
 
 class SignupActivity : AppCompatActivity() {
 
+    //reference to firebase database
     private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +24,7 @@ class SignupActivity : AppCompatActivity() {
         val btnCreate = findViewById<Button>(R.id.btnCreate)
         val btnCancel = findViewById<Button>(R.id.btnCancel)
 
+        //initialize db pointing to "Users"
         database = FirebaseDatabase.getInstance().reference.child("Users")
 
         btnCreate.setOnClickListener {
@@ -47,17 +49,19 @@ class SignupActivity : AppCompatActivity() {
                         if (snapshot.exists()) {
                             Toast.makeText(this@SignupActivity, "Email is already registered!", Toast.LENGTH_SHORT).show()
                         } else {
-                            val userId = database.push().key ?: return
+                            val userId = database.push().key ?: return      //generates a unique userId
                             val newUser = mapOf(
                                 "email" to email,
                                 "password" to password
                             )
 
+                            //save the new user in firebase under the userId
                             database.child(userId).setValue(newUser)
                                 .addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
                                         Toast.makeText(this@SignupActivity, "Signup Successful!", Toast.LENGTH_SHORT).show()
 
+                                        //store user info in SharedPreferences for later use
                                         val sharedPrefs = getSharedPreferences("BudgetWisePrefs", MODE_PRIVATE)
                                         sharedPrefs.edit()
                                             .putString("userId", userId)
