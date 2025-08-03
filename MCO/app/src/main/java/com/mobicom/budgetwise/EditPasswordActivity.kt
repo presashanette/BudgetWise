@@ -49,6 +49,7 @@ class EditPasswordActivity : AppCompatActivity() {
             val newPassword = etPassword.text.toString().trim()
             val confirmPassword = etCPassword.text.toString().trim()
 
+            // basic validation before we attempt to update anything
             if (newPassword.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -59,7 +60,7 @@ class EditPasswordActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Update password in Firebase
+            // update password in Firebase
             database.child("password").setValue(newPassword)
                 .addOnSuccessListener {
                     Toast.makeText(this, "Password updated successfully", Toast.LENGTH_SHORT).show()
