@@ -11,6 +11,7 @@ import com.google.firebase.FirebaseApp
 
 class LoginActivity : AppCompatActivity() {
 
+    //reference to firebase database
     private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +25,7 @@ class LoginActivity : AppCompatActivity() {
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         val btnSignup = findViewById<Button>(R.id.btnSignup)
 
+        //initialize firebase and connect to "Users"
         database = FirebaseDatabase.getInstance().reference.child("Users")
 
         btnLogin.setOnClickListener {
@@ -35,9 +37,12 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            //fetch users from db and validate credentials
             val dbRef = FirebaseDatabase.getInstance().reference.child("Users")
             dbRef.get().addOnSuccessListener { snapshot ->
                 var foundUserId: String? = null
+
+                //iterate through each user to confirm email and password match
                 for (userSnap in snapshot.children) {
                     val userEmail = userSnap.child("email").value as? String
                     val userPass = userSnap.child("password").value as? String
@@ -47,6 +52,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
 
+                //if credentials matched, save user info in SharedPreferences
                 if (foundUserId != null) {
                     val sharedPrefs = getSharedPreferences("BudgetWisePrefs", MODE_PRIVATE)
                     with(sharedPrefs.edit()) {
