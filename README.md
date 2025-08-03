@@ -19,7 +19,7 @@
 - **Text Recognition API (Google ML Kit)**  
   Extracts text data (merchant, date, amount, items) from scanned receipt images.
 
-- **Cloud Database (Firebase Firestore)**  
+- **Cloud Database (Firebase)**  
   Stores expenses, categories, and budget settings in the cloud, linked to each user's account.
 
 - **Charting Library (MPAndroidChart)**  
