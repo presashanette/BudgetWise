@@ -12,6 +12,8 @@ class AccountActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account)
+
+        // Greet the user by name (based on email prefix)
         val welcomeText = findViewById<TextView>(R.id.welcomeText)
         val logoutButton = findViewById<Button>(R.id.logOutBtn)
         val editPwBtn = findViewById<Button>(R.id.editPwBtn)
@@ -23,6 +25,7 @@ class AccountActivity : BaseActivity() {
         val username = email?.substringBefore("@")
         welcomeText.text = "Welcome back, $username!"
         logoutButton.setOnClickListener {
+            // Clear saved login info and bring user back to login screen
             val intent = Intent(this, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             with(sharedPrefs.edit()) {
@@ -35,6 +38,7 @@ class AccountActivity : BaseActivity() {
 
         val editPasswordBtn = findViewById<Button>(R.id.editPwBtn)
         editPasswordBtn.setOnClickListener {
+            // Navigate to password edit screen, passing userId
             val intent = Intent(this, EditPasswordActivity::class.java)
             intent.putExtra("userId", userId)
             startActivity(intent)
