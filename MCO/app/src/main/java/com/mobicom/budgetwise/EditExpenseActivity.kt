@@ -62,7 +62,7 @@ class EditExpenseActivity : AppCompatActivity() {
             }, year, month, day).show()
         }
 
-        // ✅ Save changes to Firebase
+        // Save changes to Firebase
         btnSave.setOnClickListener {
             val updatedExpense = mapOf(
                 "name" to etvName.text.toString(),
