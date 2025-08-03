@@ -7,35 +7,46 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:fontFamily="sans-serif-light"
-        android:text="@string/welcome"
-        android:textColor="@color/c2"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/header"
+        android:elevation="25dp">
+
+        <TextView
+            android:id="@+id/tvLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/logo"
+            android:textColor="@color/c1"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tvExpenseTracker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="28dp"
         android:fontFamily="sans-serif-light"
-        android:text="@string/ttitle"
+        android:text="Edit Expense"
         android:textColor="@color/c2"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvWelcome" />
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintBottom_toTopOf="@id/llCategory"/>
 
     <LinearLayout
-        android:id="@+id/llEmail"
+        android:id="@+id/llCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -45,12 +56,92 @@
         app:layout_constraintTop_toBottomOf="@+id/tvExpenseTracker">
 
         <TextView
-            android:id="@+id/tvEmail"
+            android:id="@+id/tvCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:paddingLeft="15dp"
-            android:text="@string/email"
+            android:text="Category"
+            android:textColor="@color/c2"
+            android:textSize="16sp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="5dp"
+            app:cardUseCompatPadding="true">
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/expenseSpinner"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:background="@drawable/inputs"
+                android:padding="8dp" />
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llCategory">
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:paddingLeft="15dp"
+            android:text="Name"
+            android:textColor="@color/c2"
+            android:textSize="16sp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true">
+
+            <EditText
+                android:id="@+id/etvName"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:background="@drawable/inputs"
+                android:ems="10"
+                android:inputType="text"
+                android:textColor="@color/c5"
+                android:textSize="16sp" />
+        </androidx.cardview.widget.CardView>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="236dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvExpenseTracker">
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:paddingLeft="15dp"
+            android:text="Price"
             android:textColor="@color/c2"
             android:textSize="16sp" />
 
@@ -62,14 +153,13 @@
             app:cardUseCompatPadding="true">
 
             <EditText
-                android:id="@+id/etvEmail"
+                android:id="@+id/etvPrice"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:background="@drawable/inputs"
                 android:elevation="10dp"
                 android:ems="10"
                 android:inputType="textEmailAddress"
-                android:paddingLeft="20dp"
                 android:shadowRadius="5"
                 android:textColor="@color/c5"
                 android:textSize="16sp" />
@@ -78,21 +168,23 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/llPassword"
+        android:id="@+id/llDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="324dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llEmail">
+        app:layout_constraintTop_toBottomOf="@+id/tvExpenseTracker">
 
         <TextView
-            android:id="@+id/tvPassword"
-            android:layout_width="match_parent"
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:paddingLeft="15dp"
-            android:text="@string/password"
+            android:text="Date"
             android:textColor="@color/c2"
             android:textSize="16sp" />
 
@@ -100,89 +192,52 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:cardCornerRadius="20dp"
-            app:cardElevation="8dp"
+            app:cardElevation="5dp"
             app:cardUseCompatPadding="true">
 
             <EditText
-                android:id="@+id/etvPassword"
+                android:id="@+id/etvDate"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:background="@drawable/inputs"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:paddingLeft="20dp"
-                android:textColor="@color/c5"
-                android:textSize="16sp" />
+                android:clickable="true"
+                android:drawablePadding="8dp"
+                android:focusable="false"
+                android:hint="Select Date"
+                android:inputType="none"
+                android:padding="8dp"
+                android:textColor="@color/black" />
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/llCPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+    <Button
+        android:id="@+id/btnSaveExp"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/c1"
+        android:text="Save Edits"
+        android:textColor="@color/white"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llPassword">
-
-        <TextView
-            android:id="@+id/tvCPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:paddingLeft="15dp"
-            android:text="@string/cpass"
-            android:textColor="@color/c2"
-            android:textSize="16sp" />
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="8dp"
-            app:cardUseCompatPadding="true">
-
-            <EditText
-                android:id="@+id/etvCPassword"
-                android:layout_width="200dp"
-                android:layout_height="40dp"
-                android:background="@drawable/inputs"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:paddingLeft="20dp"
-                android:textColor="@color/c5"
-                android:textSize="16sp" />
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
+        app:tint="@android:color/transparent"
+        tools:layout_editor_absoluteY="590dp"
+        app:layout_constraintTop_toBottomOf="@+id/llDate"/>
 
     <Button
         android:id="@+id/btnCancel"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginTop="10dp"
         android:backgroundTint="@color/c3"
-        android:text="@string/cancel"
+        android:text="Cancel"
         android:textColor="@color/c1"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCreate" />
-
-    <Button
-        android:id="@+id/btnCreate"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="@color/c1"
-        android:text="@string/create"
-        android:textColor="@color/white"
-        app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llCPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSaveExp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

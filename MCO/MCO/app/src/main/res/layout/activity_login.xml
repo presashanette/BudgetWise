@@ -69,6 +69,7 @@
                 android:elevation="10dp"
                 android:ems="10"
                 android:inputType="textEmailAddress"
+                android:paddingLeft="20dp"
                 android:shadowRadius="5"
                 android:textColor="@color/c5"
                 android:textSize="16sp" />
@@ -109,6 +110,7 @@
                 android:background="@drawable/inputs"
                 android:ems="10"
                 android:inputType="textPassword"
+                android:paddingLeft="20dp"
                 android:textColor="@color/c5"
                 android:textSize="16sp" />
         </androidx.cardview.widget.CardView>

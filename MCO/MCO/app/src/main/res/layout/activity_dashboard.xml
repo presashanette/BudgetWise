@@ -7,7 +7,7 @@
     android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@drawable/header"
@@ -26,20 +26,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="325dp"
-            android:clickable="true"
-            app:backgroundTint="@android:color/transparent"
-            app:borderWidth="0dp"
-            app:elevation="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/baseline_menu_24"
-            app:tint="@null"
-            tools:layout_editor_absoluteY="14dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -52,22 +38,7 @@
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="96dp"
-        android:layout_weight="1"
-        android:backgroundTint="@color/c1"
-        android:backgroundTintMode="add"
-        android:text="@string/addexpense"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/header" />
 
     <LinearLayout
         android:id="@+id/llFood"
@@ -138,7 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/baseline_fastfood_24" />
+                app:srcCompat="@drawable/shopping_basket_24dp_137a68_fill0_wght400_grad0_opsz24" />
 
             <TextView
                 android:id="@+id/tvGroceries"
@@ -230,7 +201,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/baseline_fastfood_24" />
+                app:srcCompat="@drawable/electrical_services_24dp_137a68_fill0_wght400_grad0_opsz24" />
 
             <TextView
                 android:id="@+id/tvUtil"
@@ -276,7 +247,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/baseline_fastfood_24" />
+                app:srcCompat="@drawable/savings_24dp_137a68_fill0_wght400_grad0_opsz24" />
 
             <TextView
                 android:id="@+id/tvSave"
@@ -414,7 +385,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/baseline_add_shopping_cart_24" />
+                app:srcCompat="@drawable/shopping_cart_24dp_137a68_fill0_wght400_grad0_opsz24__1_" />
 
             <TextView
                 android:id="@+id/tvShop"
@@ -436,5 +407,4 @@
             android:textSize="16sp" />
 
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
