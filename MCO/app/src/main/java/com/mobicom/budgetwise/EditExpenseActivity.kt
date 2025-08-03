@@ -36,8 +36,8 @@ class EditExpenseActivity : AppCompatActivity() {
         val etvDate: EditText = findViewById(R.id.etvDate)
         val btnSave: Button = findViewById(R.id.btnSaveExp)
         val btnCancel: Button = findViewById(R.id.btnCancel)
-
-        val items = listOf("Food", "Groceries", "Transportation", "Utilities", "Savings", "Entertainment", "Fitness & Health", "Shopping", "Other")
+        
+        val items = listOf("Food", "Groceries", "Transportation", "Utilities", "Entertainment", "Fitness & Health", "Shopping", "Other")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, items)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
